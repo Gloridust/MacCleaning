@@ -17,7 +17,10 @@ class EventMonitor: ObservableObject {
                 // 仅当按下 Control + Esc 时退出
                 if event.modifierFlags.contains(.control) && event.keyCode == 53 {
                     // 关闭当前窗口并显示完成页面
-                    showCompletion.wrappedValue = true
+                    DispatchQueue.main.async {
+                        showCompletion.wrappedValue = true
+                        NSApplication.shared.windows.first?.close() // 关闭窗口
+                    }
                 }
             }
             // 屏蔽鼠标移动事件

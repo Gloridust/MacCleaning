@@ -17,6 +17,7 @@ struct MacCleaningApp: App {
         WindowGroup {
             if showCompletion {
                 CompletionView()
+                    .frame(width: 400, height: 300) // 设置完成页面的小窗口尺寸
             } else {
                 ContentView(showCompletion: $showCompletion)
                     .edgesIgnoringSafeArea(.all)
