@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import AppKit
 
 @main
 struct MacCleaningApp: App {
     @State private var showCompletion = false
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
         WindowGroup {
@@ -18,17 +20,18 @@ struct MacCleaningApp: App {
             } else {
                 ContentView()
                     .edgesIgnoringSafeArea(.all)
-                    .onAppear {
-                        if let window = NSApp.mainWindow {
-                            window.toggleFullScreen(nil)
-                            window.level = .mainMenu + 1
-                        }
-                    }
-                    .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) { _ in
-                        showCompletion = true
-                    }
             }
         }
         .windowStyle(HiddenTitleBarWindowStyle())
+    }
+}
+
+class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        if let window = NSApplication.shared.windows.first {
+            window.setFrame(NSScreen.main?.frame ?? NSRect(x: 0, y: 0, width: 1280, height: 800), display: true)
+            window.toggleFullScreen(nil)
+            window.level = .mainMenu + 1
+        }
     }
 }

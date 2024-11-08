@@ -3,7 +3,7 @@ import SwiftUI
 struct CompletionView: View {
     var body: some View {
         VStack {
-            Image("MacBookIcon") // 确保在资产中添加名为 "MacBookIcon" 的图标
+            Image(systemName: "laptopcomputer") // 使用系统图标替换
                 .resizable()
                 .frame(width: 100, height: 100)
             Text("Congratulations on cleaning your Mac! You can now continue using your clean device.")

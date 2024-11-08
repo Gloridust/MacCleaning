@@ -47,7 +47,7 @@ struct ContentView: View {
                     isBlackBackground.toggle()
                 }
             VStack {
-                Image("CleaningIcon") // 确保在资产中添加名为 "CleaningIcon" 的图标
+                Image(systemName: "trash") // 使用系统图标替换
                     .resizable()
                     .frame(width: 100, height: 100)
                 Text("Keyboard Locked. You can now clean your Mac. Press Control+Esc to exit.")
