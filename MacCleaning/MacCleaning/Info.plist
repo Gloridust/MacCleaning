@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>Your app needs access to accessibility features to lock the keyboard and trackpad.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Your app needs access to the microphone.</string>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>Your app needs to track user activity.</string>
+</dict>
+</plist>
