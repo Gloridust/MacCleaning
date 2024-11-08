@@ -10,20 +10,20 @@ import SwiftUI
 class EventMonitor: ObservableObject {
     private var monitor: Any?
 
-    func start() {
+    func start(showCompletion: Binding<Bool>) {
         // 锁定键盘和触控板
         monitor = NSEvent.addGlobalMonitorForEvents(matching: [.keyDown, .keyUp, .mouseMoved, .leftMouseDown, .rightMouseDown]) { (event) in
             if event.type == .keyDown {
                 // 仅当按下 Control + Esc 时退出
                 if event.modifierFlags.contains(.control) && event.keyCode == 53 {
-                    // 退出全屏并关闭窗口
-                    if let window = NSApp.mainWindow {
-                        window.close()
-                    }
+                    // 关闭当前窗口并显示完成页面
+                    showCompletion.wrappedValue = true
                 }
             }
-            // 屏蔽其他事件
-            // 不执行任何操作，拦截事件
+            // 屏蔽鼠标移动事件
+            if event.type == .mouseMoved {
+                // 不执行任何操作，拦截事件
+            }
         }
     }
 
@@ -38,6 +38,7 @@ class EventMonitor: ObservableObject {
 struct ContentView: View {
     @State private var isBlackBackground = true
     @StateObject private var eventMonitor = EventMonitor()
+    @Binding var showCompletion: Bool
 
     var body: some View {
         ZStack {
@@ -58,7 +59,7 @@ struct ContentView: View {
         }
         .edgesIgnoringSafeArea(.all)
         .onAppear {
-            eventMonitor.start()
+            eventMonitor.start(showCompletion: $showCompletion)
         }
         .onDisappear {
             eventMonitor.stop()
@@ -67,5 +68,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(showCompletion: .constant(false))
 }

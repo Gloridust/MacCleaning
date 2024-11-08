@@ -18,7 +18,7 @@ struct MacCleaningApp: App {
             if showCompletion {
                 CompletionView()
             } else {
-                ContentView()
+                ContentView(showCompletion: $showCompletion)
                     .edgesIgnoringSafeArea(.all)
             }
         }
@@ -29,9 +29,10 @@ struct MacCleaningApp: App {
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         if let window = NSApplication.shared.windows.first {
-            window.setFrame(NSScreen.main?.frame ?? NSRect(x: 0, y: 0, width: 1280, height: 800), display: true)
+            window.collectionBehavior = [.fullScreenPrimary, .canJoinAllSpaces, .fullScreenAuxiliary]
             window.toggleFullScreen(nil)
-            window.level = .mainMenu + 1
+            window.level = .screenSaver // 设置窗口级别为屏幕保护程序级别，确保覆盖菜单栏和 Dock
+            window.styleMask.remove(.titled) // 移除标题栏
         }
     }
 }
