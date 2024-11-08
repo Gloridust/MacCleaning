@@ -47,11 +47,12 @@ struct ContentView: View {
                     isBlackBackground.toggle()
                 }
             VStack {
-                Image(systemName: "trash") // 使用系统图标替换
+                Image(systemName: "trash")
                     .resizable()
                     .frame(width: 100, height: 100)
+                    .foregroundColor(isBlackBackground ? .white : .black)
                 Text("Keyboard Locked. You can now clean your Mac. Press Control+Esc to exit.")
-                    .foregroundColor(.gray)
+                    .foregroundColor(isBlackBackground ? .white : .black)
                     .padding(.top, 20)
             }
         }
